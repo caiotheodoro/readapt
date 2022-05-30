@@ -67,7 +67,7 @@ const Home: NextPage = () => {
         <Flex position={"absolute"} bottom="30px" right={"10px"} flexDir="row" w="100px" align={"center"} color={"brand.black"} mr="4">
         <motion.div
             animate={{
-              translateY: [0, -10, 20, -10, 0],
+              translateY: [0, -5, 5, -10, 10, -5, 5, 0],
               scale: 1,	
               
             }}
