@@ -1,4 +1,4 @@
-import {Flex, Text } from '@chakra-ui/react'
+import { Flex, Text } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
@@ -6,14 +6,22 @@ import { Landing } from '../components/Landing/Landing'
 import { HowWorks } from '../components/HowWorks/HowWorks'
 
 const components = [
-  <Landing />,
-  <HowWorks />,
+  {
+    component: <Landing />,
+    color: 'brand.primary',
+    text: 'como funciona'
+  },
+  {
+    component: <HowWorks />,
+    color: 'brand.blue',
+    text: 'retornar'
+  }
 ]
 
 const Home: NextPage = () => {
 
-  const [currentComponent, setCurrentComponent] = useState(components[0])
-  const [currentColor, setCurrentColor] = useState('brand.primary')
+  const [current, setCurrent] = useState(components[0])
+
   useEffect(() => {
     const video = document.createElement("video");
     video.setAttribute("playsinline", "");
@@ -49,19 +57,18 @@ const Home: NextPage = () => {
         right={0}
         bottom={0}
         position="fixed"
-      bg={currentColor}
+        bg={current.color}
       >
-        {currentComponent}
+        {current.component}
         <Flex position={"absolute"} top="-50px" right="10%">
           <motion.div whileHover={{ scale: 1.1 }} onClick={
             () => {
-              setCurrentColor(currentColor === 'brand.primary' ? 'brand.blue' : 'brand.primary')
-              setCurrentComponent(currentComponent === components[0] ? components[1] : components[0])
+              setCurrent(current === components[0] ? components[1] : components[0])
             }
           }>
-            <Flex w="150px" h="150px" bgColor={currentColor === 'brand.primary' ? 'brand.blue' : 'brand.primary'} borderRadius="full" alignItems="center" justifyContent={"center"} cursor="pointer" >
+            <Flex w="150px" h="150px" bgColor={current.color === 'brand.primary' ? 'brand.blue' : 'brand.primary'} borderRadius="full" alignItems="center" justifyContent={"center"} cursor="pointer" >
               <Text>
-                como funciona
+                {current.text}
               </Text>
             </Flex>
           </motion.div>
