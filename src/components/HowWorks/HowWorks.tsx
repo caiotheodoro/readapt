@@ -32,7 +32,7 @@ export function HowWorks() {
                             Utilizando sua foto e diversas outras, conseguimos por meio de um <Link href="https://www.ibm.com/br-pt/analytics/machine-learning" target={"_blank"}  textDecor="underline">algoritmo de aprendizagem</Link> gerar uma interface mais personalizada e contribuir com uma experiência mais agradável para você!
                         </Text>
                     </Box>
-                    <HStack spacing={20} justify="center">
+                    <HStack spacing={20} justify="center" maxH={"200px"}>
                         <Image src={`avatars/Ativo ${current[0]}.svg`} alt="Perfil" w="250px" />
                         <Image src={`avatars/Ativo ${current[1]}.svg`} alt="Perfil" w="250px" />
                         <Image src={`avatars/Ativo ${current[2]}.svg`} alt="Perfil" w="250px" />
