@@ -33,9 +33,9 @@ export function HowWorks() {
                         </Text>
                     </Box>
                     <HStack spacing={20} justify="center">
-                        <Image src={`avatars/Ativo ${current[0]}.svg`} alt="Camera" w="250px" />
-                        <Image src={`avatars/Ativo ${current[1]}.svg`} alt="Camera" w="250px" />
-                        <Image src={`avatars/Ativo ${current[2]}.svg`} alt="Camera" w="250px" />
+                        <Image src={`avatars/Ativo ${current[0]}.svg`} alt="Perfil" w="250px" />
+                        <Image src={`avatars/Ativo ${current[1]}.svg`} alt="Perfil" w="250px" />
+                        <Image src={`avatars/Ativo ${current[2]}.svg`} alt="Perfil" w="250px" />
                     </HStack>
                 </motion.div>
             </Container>

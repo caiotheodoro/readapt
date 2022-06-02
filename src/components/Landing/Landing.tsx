@@ -34,12 +34,12 @@ export function Landing() {
       </motion.div>
 
       
-      <Image src="human.svg" alt="Camera" sx={{
+      <Image src="human.svg" alt="Humano" sx={{
         position: "absolute",
         left: "20%",
         width: "210px",
       }} />
-      <Image src="arrow.png" alt="Camera" position={"absolute"} top="0" left="7%" w="140px" />
+      <Image src="arrow.png" alt="Flecha" position={"absolute"} top="0" left="7%" w="140px"  />
       <Text position={"absolute"} top="1%" left="12%" fontSize={"2xl"} color="brand.black">
         habilite sua camera!
       </Text>

@@ -33,13 +33,13 @@ const EpubReader: NextPage = () => {
                             </Text>
                         </Flex>
                         <Flex justify={"center"} mt="10" >
-                            <Image src="../logo.svg" w="100px" />
+                            <Image alt="Logo" src="../logo.svg" w="100px" />
                         </Flex>
                         <Box mt="20">
                             <Flex justify={"center"} flexDirection="row" alignItems={"center"} >
                                 <Flex w="100%" justifyContent={"space-around"} position="relative">
                                     <>
-                                        <Image src={dataEbook?.cover} w="350px" h="auto" _hover={{
+                                        <Image alt="Capa do livro" src={dataEbook?.cover} w="350px" h="auto" _hover={{
                                             WebkitFilter: 'blur(2px)', /* Chrome, Safari, Opera */
                                             filter: 'blur(2px)',
                                             transition: 'all .2s ease-in-out',

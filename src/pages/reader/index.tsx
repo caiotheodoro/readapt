@@ -20,7 +20,7 @@ const Reader: NextPage = () => {
     return (
         <Container maxW='1000px'>
             <Flex justify={"center"} mt="10" >
-                <Image src="logo.svg" w="100px" />
+                <Image alt="Logo" src="logo.svg" w="100px" />
             </Flex>
             <Flex justify={"center"} mt="10" w="100%">
                 <SearchBox onChange={handleSearch} />
