@@ -36,8 +36,8 @@ const EpubReader: NextPage = () => {
                             <Image alt="Logo" src="../logo.svg" w="100px" />
                         </Flex>
                         <Box mt="20">
-                            <Flex justify={"center"} flexDirection="row" alignItems={"center"} >
-                                <Flex w="100%" justifyContent={"space-around"} position="relative">
+                            <Flex justify={"center"} flexDirection={{ base: "column", md: "row" }} alignItems={"center"} >
+                                <Flex w="100%" justifyContent={"space-around"} position="relative" flexDirection={{ base: "column", md: "row" }}>
                                     <>
                                         <Image alt="Capa do livro" src={dataEbook?.cover} w="350px" h="auto" _hover={{
                                             WebkitFilter: 'blur(2px)', /* Chrome, Safari, Opera */
@@ -47,17 +47,17 @@ const EpubReader: NextPage = () => {
 
                                         }}
 
-                                        maxH="500px" 
+                                            maxH="500px"
                                         />
                                     </>
-                                    <Box h="100%" ml="20" >
-                                        <Text color={"brand.black"} fontSize={"2xl"} fontWeight={"bold"} mb="20">
+                                    <Box h="100%" ml={{ base: "0", md: "20" }} >
+                                        <Text color={"brand.black"} fontSize={{ base: "2xl", md: "2xl" }} fontWeight={"bold"} mb="20" textAlign={{ base: "center", md: "initial" }} mt={{ base: "10", md: "0" }}>
                                             {dataEbook?.title}
                                         </Text>
                                         <Text color={"brand.black"} fontSize={"1xl"} fontWeight={"medium"} textAlign={"justify"} mb="10">
                                             {dataEbook?.description}
                                         </Text>
-                                        <Button colorScheme={"blackAlpha"} transition={'all .2s ease-in-out'} zIndex={0} onClick={() => setReadButton(true)}>
+                                        <Button colorScheme={"blackAlpha"} transition={'all .2s ease-in-out'} zIndex={0} onClick={() => setReadButton(true)} mb={{ base: "10", md: "0" }}>
                                             Ler Ebook
                                         </Button>
                                     </Box>
@@ -68,8 +68,10 @@ const EpubReader: NextPage = () => {
                 )
                 : (
                     <Box h="100vh" w="100vw">
-                        <Button position={"absolute"} zIndex={9999} left="3%" top="10px" leftIcon={<BiArrowBack />} size="sm" colorScheme={"blackAlpha"} onClick={() => setReadButton(false)}>
-                            Voltar
+                        <Button position={"absolute"} zIndex={9999} left="3%" top={{ base: "4px", md: "3px" }} leftIcon={<BiArrowBack />} size="sm" colorScheme={"blackAlpha"} onClick={() => setReadButton(false)} >
+                            <Text fontSize={{ base: "xs", md: "2xl" }}>
+                                Voltar
+                            </Text>
                         </Button>
                         <ReactReader
                             url={dataEbook?.url ? dataEbook.url : 'https://www.google.com'}

@@ -51,7 +51,7 @@ const Home: NextPage = () => {
       <Flex
         justifyContent="center"
         alignItems="center"
-        top={0}
+        top={{base: 3,lg: 1,xl:0}}
         left={0}
         right={0}
         bottom={0}
@@ -59,13 +59,14 @@ const Home: NextPage = () => {
         bg={current.color}
       >
         {current.component}
-        <Flex position={"absolute"} top="-50px" right="10%">
+        <Flex position={"absolute"} top="-50px" right={{base: '1%',lg: '7%',xl:'10%'}}>
           <motion.div whileHover={{ scale: 1.1 }} onClick={
             () => {
               setCurrent(current === components[0] ? components[1] : components[0])
             }
           }>
-            <Flex w="150px" h="150px" bgColor={current.color === 'brand.primary' ? 'brand.blue' : 'brand.primary'} borderRadius="full" alignItems="center" justifyContent={"center"} cursor="pointer" >
+            <Flex w={{base: "100px",lg: "120px",xl:"150px"}} h={{base: "100px",lg: "120px",xl:"150px"}} bgColor={current.color === 'brand.primary' ? 'brand.blue' : 'brand.primary'} borderRadius="full" alignItems="center" justifyContent={"center"} cursor="pointer" fontSize={{base: 'xs',lg: 'sm',xl:'1xl'}}>
+         
               <Text>
                 {current.text}
               </Text>

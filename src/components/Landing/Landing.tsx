@@ -17,8 +17,8 @@ export function Landing() {
       >
         <Flex
           bg={'brand.secondary'}
-          w="500px"
-          h="500px"
+          w={{base: "330px",lg: "400px",xl:"500px"}}
+          h={{base: "330px",lg: "400px",xl:"500px"}}
           borderRadius={"full"}
           justifyContent="center"
           alignItems="center"
@@ -26,8 +26,8 @@ export function Landing() {
         >
 
 
-          <Icon as={FcCompactCamera} fontSize={"200px"} display="flex" position={"absolute"} top="-50px" right={"0"} />
-          <Text textAlign={"center"} fontSize={"3xl"} p="2" color="brand.black">
+          <Icon as={FcCompactCamera} fontSize={{base: "120px",lg: "150px",xl:"200px"}} display="flex" position={"absolute"} top={{base: "-20px",lg: "-40px",xl:"-50px"}} right={"0"} />
+          <Text textAlign={"center"} fontSize={{base: "1xl",lg: "2xl",xl:"3xl"}} p="2" color="brand.black">
             Utilizamos a câmera para tentar adaptar sua interface da melhor maneira possível!
           </Text>
         </Flex>
@@ -36,11 +36,12 @@ export function Landing() {
       
       <Image src="human.svg" alt="Humano" sx={{
         position: "absolute",
-        left: "20%",
-        width: "210px",
-      }} />
-      <Image src="arrow.png" alt="Flecha" position={"absolute"} top="0" left="7%" w="140px"  />
-      <Text position={"absolute"} top="1%" left="12%" fontSize={"2xl"} color="brand.black">
+      }} 
+      left={{lg: "12%", xl: "18%"}}
+      w={{ base: "0px", md: "0px", lg: "150px", xl: "200px" }}
+      />
+      <Image src="arrow.png" alt="Flecha" position={"absolute"} top="0" left={{base: "1%",lg: "5%",xl:"7%"}} w={{base: "80px",lg: "100px",xl:"140px"}}  />
+      <Text position={"absolute"} top="1%" left="12%" fontSize={{base: "1xl",lg: "1xl",xl:"2xl"}} color="brand.black">
         habilite sua camera!
       </Text>
 
