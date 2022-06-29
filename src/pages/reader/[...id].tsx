@@ -10,8 +10,10 @@ import { IBook, useBooks } from '../../hooks/useBooks';
 
 const EpubReader: NextPage = () => {
     const [readButton, setReadButton] = useState(false)
-    const {books} = useBooks()
+    const {books,contentDistribution} = useBooks()
     const [dataEbook, setDataEbook] = useState<IBook>()
+
+
     useEffect(() => {
         (async () => {
             const { id } = Router.query
@@ -52,10 +54,10 @@ const EpubReader: NextPage = () => {
                                         />
                                     </>
                                     <Box h="100%" ml={{ base: "0", md: "20" }} >
-                                        <Text color={"brand.black"} fontSize={{ base: "2xl", md: "2xl" }} fontWeight={"bold"} mb="20" textAlign={{ base: "center", md: "initial" }} mt={{ base: "10", md: "0" }}>
+                                        <Text color={"brand.black"} fontSize={contentDistribution.titleSize} fontWeight={"bold"} mb="20" textAlign={{ base: "center", md: "initial" }} mt={{ base: "10", md: "0" }}>
                                             {dataEbook?.title}
                                         </Text>
-                                        <Text color={"brand.black"} fontSize={"1xl"} fontWeight={"medium"} textAlign={"justify"} mb="10">
+                                        <Text color={"brand.black"} fontSize={contentDistribution.descriptionSize} fontWeight={"medium"} textAlign={"justify"} mb="10">
                                             {dataEbook?.description}
                                         </Text>
                                         <Button colorScheme={"blackAlpha"} transition={'all .2s ease-in-out'} zIndex={0} onClick={() => setReadButton(true)} mb={{ base: "10", md: "0" }}>

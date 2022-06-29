@@ -12,7 +12,7 @@ interface HTMLInputEvent extends ChangeEvent {
 
 export function Landing() {
   const fileRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-  const {setBooks} = useBooks();
+  const {setBooks, setAge,setContentDistribution} = useBooks();
   const handleChange = async (e: HTMLInputEvent) => {
     if (!e.target.files?.length) {
       return;
@@ -35,7 +35,28 @@ export function Landing() {
         }
       }));
 
-      
+      setAge(data.age);
+
+      setContentDistribution(
+        ['(0, 2)', '(4, 6)', '(8, 12)'].includes(data.age) ?
+            {
+                widhtSize: '450px',
+                heightSize: '250px',
+                titleSize: '3xl',
+                descriptionSize: '20px'
+            } : ['(15, 20)', '(25, 32)', '(38, 43)'].includes(data.age) ? {
+                widhtSize: '300px',
+                heightSize: '220px',
+                titleSize: '2xl',
+                descriptionSize: '1xl'
+
+            } : {
+                widhtSize: '600px',
+                heightSize: '300px',
+                titleSize: '4xl',
+                descriptionSize: '2xl'
+            })
+
       Router.push("/reader");
 
       

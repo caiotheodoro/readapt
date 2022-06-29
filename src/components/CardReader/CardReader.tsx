@@ -1,22 +1,34 @@
 import { Box, Divider, Icon, Text, WrapItem } from "@chakra-ui/react";
-import {  FcInfo } from "react-icons/fc";
-import { IBook } from "../../hooks/useBooks";
+import { useEffect, useState } from "react";
+import { FcInfo } from "react-icons/fc";
+import { IBook, useBooks } from "../../hooks/useBooks";
 import { DataEbook } from "../dummy";
 
 
-export function CardReader({id,description,genre,pages,title, onClick, cover,reference}: IBook) {
+
+
+export function CardReader({ id, description, genre, pages, title, onClick, cover, reference }: IBook) {
+  
+    const { age,contentDistribution } = useBooks()
+
+
+    useEffect(() => {
+    
+    }, [age]);
+
+
     return (
         <WrapItem cursor={"pointer"} onClick={onClick}>
-            <Box w="300px" h="220px" bg="white" borderRadius={"2xl"} boxShadow="lg" p="8" 
-            _hover={{
-                transform: "scale(1.01)",
-                bgColor: "#E2E2E2",
-            }} >
-                <Text color="brand.black" fontSize={"2xl"} mb="2" overflow={"hidden"} textOverflow={"ellipsis"} whiteSpace={"nowrap"}>
+            <Box w={contentDistribution.widhtSize} h={contentDistribution.heightSize} bg="white" borderRadius={"2xl"} boxShadow="lg" p="8"
+                _hover={{
+                    transform: "scale(1.01)",
+                    bgColor: "#E2E2E2",
+                }} >
+                <Text color="brand.black" fontSize={contentDistribution.titleSize} mb="2" overflow={"hidden"} textOverflow={"ellipsis"} whiteSpace={"nowrap"}>
                     {title}
                 </Text>
                 <Divider />
-                <Text color="brand.black" fontSize={"1xl"} mt="2" style={{
+                <Text color="brand.black" fontSize={contentDistribution.descriptionSize} mt="2" style={{
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                     display: "-webkit-box",
