@@ -6,10 +6,11 @@ export default class Document extends NextDocument {
         return (
             <Html lang='pt-br'>
                 <title>Readapt</title>
+                    <meta name="viewport"  content="width=device-width, initial-scale=1.0" />
                 <Head>
                     <link rel="icon" href="/favicon.ico" />
-                    <meta name="viewport"  content="width=device-width, initial-scale=1.0" />
                     <meta name="description" content="Readapt é um aplicativo que permite que você leia livros de forma mais rápida e divertida." />
+                    
                 </Head>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" />

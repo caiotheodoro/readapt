@@ -1,9 +1,10 @@
 import { Box, Divider, Icon, Text, WrapItem } from "@chakra-ui/react";
 import {  FcInfo } from "react-icons/fc";
+import { IBook } from "../../hooks/useBooks";
 import { DataEbook } from "../dummy";
 
 
-export function CardReader({description,genre,time,title, onClick}: DataEbook) {
+export function CardReader({id,description,genre,pages,title, onClick, cover,reference}: IBook) {
     return (
         <WrapItem cursor={"pointer"} onClick={onClick}>
             <Box w="300px" h="220px" bg="white" borderRadius={"2xl"} boxShadow="lg" p="8" 
@@ -26,7 +27,7 @@ export function CardReader({description,genre,time,title, onClick}: DataEbook) {
                 </Text>
                 {/* minutes to read */}
                 <Text color="brand.black" fontSize={"sm"} mt="2" alignItems={"center"} display="flex" justifyContent={"flex-end"} marginTop="5">
-                    <Icon name="clock" color="brand.black" as={FcInfo} mr="2" /> {genre} · {time}
+                    <Icon name="clock" color="brand.black" as={FcInfo} mr="2" /> {genre} · {pages} páginas
                 </Text>
             </Box>
         </WrapItem>

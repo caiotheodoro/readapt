@@ -17,7 +17,7 @@ export const data: DataEbook[] = [
         genre: 'Ficção',
         time: '296 páginas',
         cover: '../books/covers/alice-in-wonderland.jpg',
-        url: 'https://react-reader.metabits.no/files/alice.epub',
+        url: '../books/alice.epub',
     },
     {
         id: 2,

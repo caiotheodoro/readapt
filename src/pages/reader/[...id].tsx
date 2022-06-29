@@ -4,21 +4,22 @@ import Router from 'next/router';
 import { useEffect, useState } from 'react';
 import { ReactReader } from 'react-reader';
 import { BiArrowBack } from 'react-icons/bi'
-import { data, DataEbook } from '../../components/dummy';
+import { IBook, useBooks } from '../../hooks/useBooks';
 
 
 
 const EpubReader: NextPage = () => {
     const [readButton, setReadButton] = useState(false)
-    const [dataEbook, setDataEbook] = useState<DataEbook>()
+    const {books} = useBooks()
+    const [dataEbook, setDataEbook] = useState<IBook>()
     useEffect(() => {
         (async () => {
             const { id } = Router.query
-            const response = data.find(item => item.id === Number(id))
-            setDataEbook(response)
+            const booksFinded = books.find(item => item.id === Number(id))
+            console.log(books)
+            setDataEbook(booksFinded)
         })()
     }, []);
-
 
     return (
         <>
@@ -39,7 +40,7 @@ const EpubReader: NextPage = () => {
                             <Flex justify={"center"} flexDirection={{ base: "column", md: "row" }} alignItems={"center"} >
                                 <Flex w="100%" justifyContent={"space-around"} position="relative" flexDirection={{ base: "column", md: "row" }}>
                                     <>
-                                        <Image alt="Capa do livro" src={dataEbook?.cover} w="350px" h="auto" _hover={{
+                                        <Image alt="Capa do livro" src={"../books/covers/"+dataEbook?.cover} w="350px" h="auto" _hover={{
                                             WebkitFilter: 'blur(2px)', /* Chrome, Safari, Opera */
                                             filter: 'blur(2px)',
                                             transition: 'all .2s ease-in-out',
@@ -74,7 +75,7 @@ const EpubReader: NextPage = () => {
                             </Text>
                         </Button>
                         <ReactReader
-                            url={dataEbook?.url ? dataEbook.url : 'https://www.google.com'}
+                            url={dataEbook?.reference ? '../books/epubs/'+dataEbook.reference : ''}
                         />
                     </Box>
                 )}

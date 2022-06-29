@@ -3,6 +3,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import themeFile from '../theme'
 import { useEffect, useState } from 'react'
 import { createRoot, Root } from 'react-dom/client';
+import { BooksProvider } from '../hooks/useBooks';
 const theme = extendTheme(themeFile)
 
 
@@ -23,7 +24,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   root.render(
     <ChakraProvider theme={theme}>
+      <BooksProvider>
         <Component {...pageProps} />
+      </BooksProvider>
     </ChakraProvider>
   )
 }
