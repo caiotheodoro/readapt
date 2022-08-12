@@ -21,6 +21,6 @@ export default {
             'primary': '#FFBA53',
             'secondary': '#FFD179',
         },
-       
+
     }
 }
