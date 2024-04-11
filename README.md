@@ -1,28 +1,32 @@
 # Readapt
 
+### Improve the experience of reading ebooks through a queue of recommendations in multiple parts.
 
-Readapt é uma aplicação de leitura de Ebooks feita com o objetivo de se adequar ao usuário. A partir de uma foto do usuário, o programa estima a idade do usuário e aplica um filtro de ebooks, bem como um filtro de dispersão de conteúdo.
+Readapt was born with the goal of improving the experience of reading ebooks through a queue of recommendations in multiple parts.
 
-Foi utilizada a linguagem de programação Python para a construção do servidor, o framework flask para a implementação REST, a biblioteca openCV para o treinamento de modelos de imagem e o framework de computação distribuida pySpark para a construção do modelo de recomendação, sendo ele mantido e filtrado em dataframe.
+Using the user's photo, we draw a profile that helps both accessibility and customization of the reader. From the spread of content to the size of the font, we focus on bringing the best experience possible without the need of manual configuration of the user.
 
-### Arquitetura
+The system is based on a machine learning model that estimates the user's age, which is then sent to the filter that, above a dataset of books, separates and returns a dataframe corresponding to the recommendations.
 
+The system was built using the programming language Python for the server, the framework flask for the implementation of REST, the openCV library for the training of image models and the distributed computing framework pySpark for the construction of the recommendation model, being it maintained and filtered in a dataframe.
 
-![Readapt](./public/schema.png)
-
-
-### Funcionamento
-
-1. O cliente envia uma imagem para o servidor por POST pela rota /upload.
-2. O servidor recebe a imagem  e envia para o classificador de idade do openCV.
-3. O classificador retorna a idade estimada do usuário.
-4. O servidor envia a idade estimada para o sistema de recomendação de ebooks do pySpark.
-5. O sistema de recomendação, através do RDD(Resilient Distributed Datasets) manipula o dataset de ebooks com base na idade estimada do usuário.
-6. São retornados os ebooks recomendados/filtrados.
-7. A função do pySpark envia o Dataframe de recomendação para o servidor.
-8. O servidor retorna o Dataframe de recomendação para o cliente, juntamente com a idade estimada.
+### Architecture
 
 
+![Readapt](./public/readapt-architecture.svg)
+
+
+### Operation
+
+
+1. The client sends an image to the server through the route /upload.
+2. The server receives the image and sends it to the age classification algorithm of openCV.
+3. The algorithm returns the estimated age.
+4. The server sends the estimated age to the pySpark system for the recommendation of ebooks.
+5. The pySpark system uses the RDD(Resilient Distributed Datasets) to manipulate the dataset of ebooks with base on the estimated age of the user.
+6. The system returns the recommended ebooks.
+7. The pySpark system sends the Dataframe of recommendation to the server.
+8. The server returns the Dataframe of recommendation to the client, together with the estimated age.
 ### Motulos utilizados
 
 - [Opencv-python](https://pypi.org/project/opencv-python/) - Biblioteca de código aberto para o processamento de imagens.
@@ -30,15 +34,15 @@ Foi utilizada a linguagem de programação Python para a construção do servido
 - [PySpark](https://spark.apache.org/docs/latest/api/python/) - Framework de código aberto para o processamento de dados.
 - [Numpy](https://numpy.org/) - Biblioteca de código aberto para o processamento de dados.
 - [OS](https://docs.python.org/3/library/os.html) - Biblioteca de código aberto para o operação de sistema.
-### Como utilizar o Readapt
+### How to use Readapt
 
-#### Cliente:
+#### Client:
 ```
 ~$ npm i
 ~$ yarn dev
 ```
 
-#### Servidor:
+#### Server:
 
 ```
 ~$ pip install pyspark
@@ -48,5 +52,4 @@ Foi utilizada a linguagem de programação Python para a construção do servido
 ~$ python ./backend/app.py
 ```
 
-## Feito isso, basta enviar sua foto pelo cliente e utilizar a aplicação!
 ![Readapt client](./public/client.png)
