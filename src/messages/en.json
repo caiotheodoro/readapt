@@ -1,0 +1,14 @@
+{
+  "Index": {
+    "title": "Welcome to our application",
+    "description": "This is a sample application using next-intl for internationalization."
+  },
+  "Navigation": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "Footer": {
+    "copyright": "© 2024 Your Company. All rights reserved."
+  }
+}

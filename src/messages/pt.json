@@ -1,0 +1,14 @@
+{
+  "Index": {
+    "title": "Bem-vindo à nossa aplicação",
+    "description": "Esta é uma aplicação de exemplo usando next-intl para internacionalização."
+  },
+  "Navigation": {
+    "home": "Início",
+    "about": "Sobre",
+    "contact": "Contato"
+  },
+  "Footer": {
+    "copyright": "© 2024 Sua Empresa. Todos os direitos reservados."
+  }
+}
