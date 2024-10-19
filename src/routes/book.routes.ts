@@ -24,4 +24,16 @@ export const bookRoutes = new Elysia({ prefix: "/books" })
       description: "Get paginated list of books with optional search",
       tags: ["Book routes"],
     },
+  })
+  .get("/random", async () => {
+    const randomBook = await bookService.getRandomBook();
+    if (!randomBook) {
+      throw new Error("No books available");
+    }
+    return randomBook;
+  }, {
+    detail: {
+      description: "Get a random book",
+      tags: ["Book routes"],
+    },
   });

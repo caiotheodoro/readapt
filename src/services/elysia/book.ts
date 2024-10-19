@@ -1,4 +1,4 @@
-import { eq, ilike, or } from 'drizzle-orm';
+import { eq, ilike, or, sql } from 'drizzle-orm';
 import { db } from '../../server';
 import { Book, books as booksTable } from '../../server/schema';
 
@@ -22,5 +22,9 @@ export const bookService = {
       page,
       pageSize,
     };
+  },
+  async getRandomBook(): Promise<Book | null> {
+    const book = await db.select().from(booksTable as any).orderBy(sql`RANDOM()`).limit(1);
+    return book[0] as Book | null;
   },
 };
