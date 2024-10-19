@@ -1,60 +1,85 @@
 import { useState, useEffect, useCallback } from 'react';
 import { debounce } from 'lodash';
 import { Book } from '../server/schema';
+import { usePagination } from './usePagination';
+import { useLoading } from './useLoading';
 
 export function useBookSearch(initialSearchTerm: string = '') {
   const [books, setBooks] = useState<Book[]>([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
-  const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+
+  const { page, setPage, pageSize, nextPage, resetPage } = usePagination();
+  const { isLoading, withLoading } = useLoading();
 
   const fetchBooks = useCallback(async (term: string, pageNum: number) => {
-    setLoading(true);
     setError(null);
 
     try {
-      const response = await fetch(`/api/books?search=${term}&page=${pageNum}&pageSize=12`);
+      const response = await fetch(`/api/books?search=${term}&page=${pageNum}&pageSize=${pageSize}`);
       if (!response.ok) {
         throw new Error('Failed to fetch books');
       }
       const data = await response.json();
       setBooks(prevBooks => pageNum === 1 ? data.books : [...prevBooks, ...data.books]);
-      setHasMore(data.books.length === 12);
+      setHasMore(data.books.length === pageSize);
     } catch (err) {
       setError('Failed to fetch books. Please try again.');
-    } finally {
-      setLoading(false);
     }
-  }, []);
+  }, [pageSize]);
 
   const debouncedSearch = useCallback(
     debounce((term: string) => {
-      setPage(1);
-      fetchBooks(term, 1);
+      resetPage();
+      withLoading(() => fetchBooks(term, 1));
     }, 300),
-    [fetchBooks]
+    [fetchBooks, resetPage, withLoading]
   );
 
   useEffect(() => {
     if (searchTerm) {
       debouncedSearch(searchTerm);
     } else {
-      fetchBooks('', 1);
+      withLoading(() => fetchBooks('', 1));
     }
     return () => {
       debouncedSearch.cancel();
     };
-  }, [searchTerm, debouncedSearch, fetchBooks]);
+  }, [searchTerm, debouncedSearch, fetchBooks, withLoading]);
 
   const loadMore = useCallback(() => {
-    if (!loading && hasMore) {
-      const nextPage = page + 1;
-      setPage(nextPage);
-      fetchBooks(searchTerm, nextPage);
+    if (!isLoading && hasMore) {
+      nextPage();
+      withLoading(() => fetchBooks(searchTerm, page + 1));
     }
-  }, [loading, hasMore, page, searchTerm, fetchBooks]);
+  }, [isLoading, hasMore, nextPage, withLoading, fetchBooks, searchTerm, page]);
 
-  return { books, loading, error, searchTerm, setSearchTerm, loadMore, hasMore };
+  const getRandomBook = useCallback(async () => {
+    setError(null);
+    try {
+      const randomBook = await withLoading(() => fetch('/api/books/random'));
+      if (!randomBook.ok) {
+        throw new Error('Failed to fetch random book');
+      }
+      const data = await randomBook.json();
+      setSelectedBook(data);
+    } catch (err) {
+      setError('Failed to fetch random book. Please try again.');
+    }
+  }, [withLoading]);
+
+  return { 
+    books, 
+    isLoading, 
+    error, 
+    searchTerm, 
+    setSearchTerm, 
+    loadMore, 
+    hasMore, 
+    selectedBook, 
+    setSelectedBook, 
+    getRandomBook 
+  };
 }
