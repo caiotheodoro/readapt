@@ -1,6 +1,10 @@
 import { Button } from "@/src/components/ui/button"
 import { motion } from "framer-motion"
 import Image from "next/image"
+import Eye from "../molecules/eye"
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+import { Space } from "lucide-react"
 
 interface HeroProps {
   title: string
@@ -10,8 +14,22 @@ interface HeroProps {
 }
 
 export function Hero({ title, subtitle, description, cta }: HeroProps) {
+  const router = useRouter()
+
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      router.push('/books')
+    }
+
+    window.addEventListener('keydown', handleKeyPress)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress)
+    }
+  }, [router])
+
   return (
-    <section className="w-full py-20 md:py-24 lg:py-32 xl:py-40 bg-blue-600 text-white overflow-hidden relative">
+    <section className="w-full h-screen flex items-center bg-blue-600 text-white overflow-hidden relative">
       <div className="absolute inset-0 noise-bg-primary" />
       <motion.div 
         className="absolute inset-0 bg-blue-600"
@@ -31,14 +49,17 @@ export function Hero({ title, subtitle, description, cta }: HeroProps) {
         transition={{ duration: 0.8 }}
       >
         <div className="flex-1 text-center md:text-left md:pr-10">
+          <div className="flex items-center gap-4 h-fit mb-4">
+          <Eye />
           <motion.h1 
-            className="text-5xl font-bold tracking-tighter sm:text-6xl md:text-7xl lg:text-8xl mb-6"
+            className="text-5xl font-bold tracking-tighter sm:text-6xl md:text-7xl lg:text-8xl "
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >
             {title}
           </motion.h1>
+          </div>
           <motion.p 
             className="text-xl md:text-2xl text-blue-100 mb-4"
             initial={{ y: 50, opacity: 0 }}
@@ -55,15 +76,7 @@ export function Hero({ title, subtitle, description, cta }: HeroProps) {
           >
             {description}
           </motion.p>
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-          >
-            <Button size="lg" className="text-blue-900 bg-white hover:bg-blue-50">
-              {cta}
-            </Button>
-          </motion.div>
+           <Button className="flex items-center gap-2 text-gray-200 opacity-80 font-medium" onClick={() => router.push('/books')}>{cta} <Space className="w-4 h-4" /></Button>
         </div>
         <motion.div 
           className="flex-1 mt-10 md:mt-0"
@@ -76,7 +89,7 @@ export function Hero({ title, subtitle, description, cta }: HeroProps) {
             alt="Readapt Hero Image" 
             width={600} 
             height={400} 
-            className="rounded-lg"
+            className="rounded-lg md:w-full w-2/3 mx-auto"
           />
         </motion.div>
       </motion.div>

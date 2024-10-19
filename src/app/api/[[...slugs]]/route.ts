@@ -1,4 +1,4 @@
-import { elysiaApp } from "@/elysia"
+import app from "@/src/server"
 
-export const GET = elysiaApp.handle 
-export const POST = elysiaApp.handle 
+export const GET = app.handle 
+export const POST = app.handle 
