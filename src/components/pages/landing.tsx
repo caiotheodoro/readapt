@@ -1,12 +1,6 @@
 'use client'
-import { Header } from "../organisms/Header"
 import { Hero } from "../organisms/Hero"
-import { Features } from "../organisms/Features"
 import { Eye, Headphones, BookOpen, Settings } from "lucide-react"
-import { motion } from "framer-motion"
-import { Button } from "@/src/components/ui/button"
-import Link from "next/link"
-import Image from "next/image"
 import { PageTransition } from "../atoms/PageTransition"
 
 const content = {

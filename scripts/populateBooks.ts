@@ -1,9 +1,9 @@
 import 'dotenv/config';
 import { Gutendex, Book as GutendexBook } from '../src/lib/Gutendex.js';
-import { bookService } from '../src/services/book/index.js';
 import { getSignedUrlForS3Object, getFileName } from '../src/lib/cloudflare/r2.js';
 import { env } from '../src/env.js';
 import fetch from 'node-fetch';
+import { bookService } from '@/src/services/elysia/book/index.js';
 
 const gutendex = new Gutendex();
 const BOOKS_PER_PAGE = 32; // Gutendex returns 32 books per page
