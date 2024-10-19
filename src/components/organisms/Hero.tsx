@@ -1,5 +1,5 @@
 import { Button } from "@/src/components/ui/button"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import Image from "next/image"
 import Eye from "../molecules/eye"
 import { useRouter } from 'next/navigation'
@@ -28,9 +28,15 @@ export function Hero({ title, subtitle, description, cta }: HeroProps) {
     }
   }, [router])
 
+  const textVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1 },
+  }
+
   return (
-    <section className="w-full h-screen flex items-center bg-blue-600 text-white overflow-hidden relative">
-      <div className="absolute inset-0 noise-bg-primary" />
+    <AnimatePresence>
+      <section className="w-full h-screen flex items-center bg-blue-600 text-white overflow-hidden relative">
+        <div className="absolute inset-0 noise-bg-primary" />
       <motion.div 
         className="absolute inset-0 bg-blue-600"
         animate={{
@@ -50,33 +56,44 @@ export function Hero({ title, subtitle, description, cta }: HeroProps) {
       >
         <div className="flex-1 text-center md:text-left md:pr-10">
           <div className="flex items-center gap-4 h-fit mb-4">
-          <Eye />
-          <motion.h1 
-            className="text-5xl font-bold tracking-tighter sm:text-6xl md:text-7xl lg:text-8xl "
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-          >
-            {title}
-          </motion.h1>
+            <Eye />
+            <motion.h1 
+              className="text-5xl font-bold tracking-tighter sm:text-6xl md:text-7xl lg:text-8xl"
+              variants={textVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              {title}
+            </motion.h1>
           </div>
           <motion.p 
             className="text-xl md:text-2xl text-blue-100 mb-4"
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
+            variants={textVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 0.8, delay: 0.4 }}
           >
             {subtitle}
           </motion.p>
           <motion.p 
             className="text-lg md:text-xl text-blue-50 mb-8"
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
+            variants={textVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 0.8, delay: 0.6 }}
           >
             {description}
           </motion.p>
-           <Button className="flex items-center gap-2 text-gray-200 opacity-80 font-medium" onClick={() => router.push('/books')}>{cta} <Space className="w-4 h-4" /></Button>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            <Button className="flex items-center gap-2 text-gray-200 opacity-80 font-medium" onClick={() => router.push('/books')}>
+              {cta} <Space className="w-4 h-4" />
+            </Button>
+          </motion.div>
         </div>
         <motion.div 
           className="flex-1 mt-10 md:mt-0"
@@ -119,5 +136,6 @@ export function Hero({ title, subtitle, description, cta }: HeroProps) {
         }}
       />
     </section>
+    </AnimatePresence>
   )
 }
