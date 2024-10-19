@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.className}>
         <AnimatePresence mode="wait" initial={false}>
-          <div key={pathname}>
+          <div key={pathname} >
             {children}
           </div>
         </AnimatePresence>

@@ -8,7 +8,7 @@ export function BookSkeleton() {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.8 }}
       transition={{ duration: 0.3 }}
-      className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-300"
+      className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg  duration-300"
     >
       <div className="w-full h-40 bg-gray-300 animate-pulse" />
       <div className="p-4">
