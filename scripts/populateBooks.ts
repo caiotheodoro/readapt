@@ -1,7 +1,6 @@
 import 'dotenv/config';
 import { Gutendex, Book as GutendexBook } from '../src/lib/Gutendex.js';
 import { getSignedUrlForS3Object, getFileName } from '../src/lib/cloudflare/r2.js';
-import { env } from '../src/env.js';
 import fetch from 'node-fetch';
 import { bookService } from '@/src/services/elysia/book/index.js';
 
