@@ -7,6 +7,7 @@ import { motion } from "framer-motion"
 import { Button } from "@/src/components/ui/button"
 import Link from "next/link"
 import Image from "next/image"
+import { PageTransition } from "../atoms/PageTransition"
 
 const content = {
   hero: {
@@ -54,10 +55,12 @@ const content = {
 
 export default function ReadaptLandingPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-50 to-white overflow-hidden">
-      <main className="flex-1">
-        <Hero {...content.hero} />
-      </main>
-    </div>
+    <PageTransition>
+      <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-50 to-white overflow-hidden">
+        <main className="flex-1">
+          <Hero {...content.hero} />
+        </main>
+      </div>
+    </PageTransition>
   )
 }
