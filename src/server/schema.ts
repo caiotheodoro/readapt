@@ -1,4 +1,4 @@
-import { pgTable, serial, text, varchar, integer } from "drizzle-orm/pg-core";
+import { pgTable, serial, text, varchar, integer, boolean,decimal } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
@@ -15,7 +15,24 @@ export const books = pgTable("books", {
   downloadUrl: text("download_url").notNull(),
 });
 
+export const processedImages = pgTable("processed_images", {
+  id: serial("id").primaryKey(),
+  score: decimal("score").notNull(),
+  image: text("image").notNull(),
+  Arched_Eyebrows: boolean("arched_eyebrows").notNull(),
+  Bags_Under_Eyes: boolean("bags_under_eyes").notNull(),
+  Bushy_Eyebrows: boolean("bushy_eyebrows").notNull(),
+  Eyeglasses: boolean("eyeglasses").notNull(),
+  Gray_Hair: boolean("gray_hair").notNull(),
+  High_Cheekbones: boolean("high_cheekbones").notNull(),
+  Male: boolean("male").notNull(),
+  Narrow_Eyes: boolean("narrow_eyes").notNull(),
+  Young: boolean("young").notNull(),
+});
+
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type Book = typeof books.$inferSelect;
 export type NewBook = typeof books.$inferInsert;
+export type ProcessedImage = typeof processedImages.$inferSelect;
+export type NewProcessedImage = typeof processedImages.$inferInsert;
