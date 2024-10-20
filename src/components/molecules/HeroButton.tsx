@@ -4,10 +4,9 @@ import { Code, Space } from "lucide-react"
 import { useRouter } from "next/navigation";
 interface HeroButtonProps {
   cta: string
-  onClick: () => void
 }
 
-export function HeroButton({ cta, onClick }: HeroButtonProps) {
+export function HeroButton({ cta }: HeroButtonProps) {
   const router = useRouter();
   return (
     <motion.div
@@ -16,7 +15,7 @@ export function HeroButton({ cta, onClick }: HeroButtonProps) {
       transition={{ duration: 0.8, delay: 0.8 }}
       className="flex items-center gap-2"
     >
-      <Button className="flex items-center gap-2 text-gray-200 opacity-80 font-medium" onClick={onClick}>
+      <Button className="flex items-center gap-2 text-gray-200 opacity-80 font-medium" onClick={() => router.push('/books')}>
         {cta} <Space className="w-4 h-4" />
       </Button>
       <Button variant="outline" className="text-gray-200 bg-transparent font-medium" onClick={() => router.push('/architecture')}>

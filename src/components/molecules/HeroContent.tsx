@@ -10,10 +10,9 @@ interface HeroContentProps {
   subtitle: string
   description: string
   cta: string
-  handleInteraction: () => void
 }
 
-export function HeroContent({ title, subtitle, description, cta, handleInteraction }: HeroContentProps) {
+export function HeroContent({ title, subtitle, description, cta }: HeroContentProps) {
   
   return (
     <div className="flex-1 text-center md:text-left md:pr-10">
@@ -23,7 +22,7 @@ export function HeroContent({ title, subtitle, description, cta, handleInteracti
       </div>
       <HeroSubtitle subtitle={subtitle} />
       <HeroDescription description={description} />
-      <HeroButton cta={cta} onClick={handleInteraction} />
+      <HeroButton cta={cta} />
     </div>
   )
 }

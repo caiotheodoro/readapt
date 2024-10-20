@@ -57,7 +57,7 @@ export function Hero({ title, subtitle, description, cta }: HeroProps) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          <HeroContent title={title} subtitle={subtitle} description={description} cta={cta} handleInteraction={handleInteraction} />
+          <HeroContent title={title} subtitle={subtitle} description={description} cta={cta} />
           <HeroImage />
         </motion.div>
         
