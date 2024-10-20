@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { Gutendex, Book as GutendexBook } from '../src/lib/Gutendex.js';
 import { getSignedUrlForS3Object, getFileName } from '../src/lib/cloudflare/r2.js';
-import fetch from 'node-fetch';
+import { apiService } from '@/src/services/ApiService.js';
 import { bookService } from '@/src/services/elysia/book/index.js';
 
 const gutendex = new Gutendex();
@@ -9,20 +9,13 @@ const BOOKS_PER_PAGE = 32; // Gutendex returns 32 books per page
 const TOTAL_BOOKS = 1000;
 
 async function downloadAndUploadEpub(downloadUrl: string, bookId: number): Promise<string> {
-  const response = await fetch(downloadUrl);
-  const arrayBuffer = await response.arrayBuffer();
-
-  // Convert ArrayBuffer to Buffer
-  const buffer = Buffer.from(arrayBuffer);
+  const response = await apiService.get(downloadUrl, { responseType: 'arraybuffer' }) as ArrayBuffer;
+  const buffer = Buffer.from(response);
 
   const fileName = getFileName('books', `${bookId}.epub`);
   const signedUrl = await getSignedUrlForS3Object('books', `${bookId}.epub`, 'application/epub+zip');
 
-  await fetch(signedUrl, {
-    method: 'PUT',
-    body: buffer,
-    headers: { 'Content-Type': 'application/epub+zip' },
-  });
+  await apiService.put(signedUrl, buffer, { 'Content-Type': 'application/epub+zip' });
 
   return fileName;
 }
