@@ -4,6 +4,7 @@ import { HeroDescription } from "../atoms/HeroDescription"
 import { HeroButton } from "./HeroButton"
 import Eye from "./Eye"
 
+
 interface HeroContentProps {
   title: string
   subtitle: string
