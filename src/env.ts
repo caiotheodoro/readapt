@@ -13,6 +13,7 @@ export const env = createEnv({
   },
   client: {
     NEXT_PUBLIC_R2_URL: z.string().url(),
+    NEXT_PUBLIC_API_URL: z.string().url(),
   },
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
@@ -23,5 +24,6 @@ export const env = createEnv({
     BUCKET_NAME: process.env.BUCKET_NAME,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXT_PUBLIC_R2_URL: process.env.NEXT_PUBLIC_R2_URL,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   },
 });
