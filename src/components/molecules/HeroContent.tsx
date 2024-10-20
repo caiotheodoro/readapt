@@ -2,7 +2,7 @@ import { HeroTitle } from "../atoms/HeroTitle"
 import { HeroSubtitle } from "../atoms/HeroSubtitle"
 import { HeroDescription } from "../atoms/HeroDescription"
 import { HeroButton } from "./HeroButton"
-import Eye from "./Eye"
+import Eye from "../atoms/Eye"
 
 
 interface HeroContentProps {

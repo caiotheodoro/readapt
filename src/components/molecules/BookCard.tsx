@@ -15,7 +15,7 @@ export default function BookCard({ book, onClick }: { book: Book; onClick: () =>
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
-      className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg "
+      className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg h-full"
       onClick={onClick}
     >
       <div className="relative w-full h-40">
