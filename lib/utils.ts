@@ -12,7 +12,6 @@ export function getBucketPath(filename: string): string {
     return filename;
   }
 
-  console.log("filename", filename)
 
   return `${env.NEXT_PUBLIC_R2_URL}/${filename}`;
 
