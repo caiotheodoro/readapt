@@ -1,20 +1,22 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { motion } from "framer-motion"
 import { X } from "lucide-react"
 import { ReactReader } from "react-reader"
 import { getBucketPath } from "@/lib/utils"
 import { Book } from "@/src/server/schema"
 import { EbookSkeleton } from "../molecules/EbookSkeleton"
-
+import { useAccessibilitySettings } from "@/src/hooks/useAccessibilitySettings"
+import type { Contents, Rendition } from 'epubjs'
 interface EbookReaderProps {
   book: Book
   onClose: () => void
 }
 
 export function EbookReader({ book, onClose }: EbookReaderProps) {
+  const { getEbookFontSizePercentage } = useAccessibilitySettings();
   const [location, setLocation] = useState<string>("epubcfi(/6/2[cover]!/6)")
   const [readerError, setReaderError] = useState<string | null>(null)
-
+  const rendition = useRef<Rendition | undefined>(undefined)
   const handleLocationChanged = (newLocation: string) => {
     setLocation(newLocation)
   }
@@ -46,17 +48,14 @@ export function EbookReader({ book, onClose }: EbookReaderProps) {
               epubOptions={{
                 flow: "paginated",
                 manager: "default"
+                
               }}
               epubInitOptions={{
                 openAs: 'epub',
               }}
-              getRendition={(rendition) => {
-                rendition.on("rendered", (section: any) => {
-                  console.log("Rendered:", section)
-                })
-                rendition.on("displayed", (event: any) => {
-                  console.log("Displayed:", event)
-                })
+              getRendition={(_rendition: Rendition) => {
+                rendition.current = _rendition
+                rendition.current.themes.fontSize(getEbookFontSizePercentage().toString() + '%')
               }}
               loadingView={<EbookSkeleton />}
             />

@@ -1,8 +1,13 @@
+
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Book } from '@/src/server/schema';
+import { useAccessibilitySettings } from '@/src/hooks/useAccessibilitySettings';
+import { cn } from '@/lib/utils';
 
 export default function BookCard({ book, onClick }: { book: Book; onClick: () => void }) {
+  const { getFontSize } = useAccessibilitySettings();
+
   return (
     <motion.div
       key={book.id}
@@ -20,8 +25,8 @@ export default function BookCard({ book, onClick }: { book: Book; onClick: () =>
         height={100}
       />
       <div className="p-4">
-        <h3 className="font-semibold text-lg mb-1 truncate" title={book.title}>{book.title}</h3>
-        <p className="text-sm text-gray-600 mb-2 line-clamp-1" title={book.author}>{book.author}</p>
+        <h3 className={cn(`font-semibold  mb-1 truncate`, getFontSize().large)} title={book.title}>{book.title}</h3>
+        <p className={cn(` text-gray-600 mb-2 line-clamp-1`, getFontSize().small)} title={book.author}>{book.author}</p>
       </div>
     </motion.div>
   )
