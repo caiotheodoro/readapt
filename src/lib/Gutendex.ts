@@ -1,3 +1,5 @@
+import { apiService } from '@/src/services/ApiService';
+
 export interface Book {
   id: number;
   title: string;
@@ -12,8 +14,7 @@ export class Gutendex {
   async searchBooks(searchParam: string = ''): Promise<Book[]> {
     try {
       const url = `${this.baseUrl}${searchParam}`;
-      const response = await fetch(url);
-      const data = await response.json();
+      const data = await apiService.get<any>(url);
 
       return data.results.map((book: any) => {
         const epubUrl = book.formats['application/epub+zip'];
