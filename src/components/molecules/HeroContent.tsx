@@ -1,9 +1,8 @@
 import { HeroTitle } from "../atoms/HeroTitle"
 import { HeroSubtitle } from "../atoms/HeroSubtitle"
 import { HeroDescription } from "../atoms/HeroDescription"
-import Eye from "./eye"
 import { HeroButton } from "./HeroButton"
-import { useHeroStore } from "@/src/store/heroStore"
+import Eye from "./Eye"
 
 interface HeroContentProps {
   title: string
