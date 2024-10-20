@@ -1,6 +1,3 @@
-import { BookOpen } from "lucide-react"
-import Link from "next/link"
-import Eye from "../molecules/eye"
 import { motion } from "framer-motion"
 
 export function Logo() {
