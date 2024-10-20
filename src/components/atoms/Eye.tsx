@@ -1,20 +1,52 @@
-import React from 'react';
+"use client"
 
-const Eye: React.FC = () => {
+import { useState, useEffect } from "react"
+import { motion } from "framer-motion"
+
+export default function Eye() {
+  const [eyePosition, setEyePosition] = useState({ x: 0, y: 0 })
+  const [isLooking, setIsLooking] = useState(false)
+
+  useEffect(() => {
+    const lookInterval = setInterval(() => {
+      setIsLooking(true)
+      const newX = Math.random() * 20 - 10 // Random value between -10 and 10
+      const newY = Math.random() * 20 - 10 // Random value between -10 and 10
+      setEyePosition({ x: newX, y: newY })
+      setTimeout(() => setIsLooking(false), 500)
+    }, 3000)
+
+    return () => clearInterval(lookInterval)
+  }, [])
+
   return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M12 5C7 5 2.73 8.11 1 12C2.73 15.89 7 19 12 19C17 19 21.27 15.89 23 12C21.27 8.11 17 5 12 5ZM12 16.5C9.24 16.5 7 14.26 7 11.5C7 8.74 9.24 6.5 12 6.5C14.76 6.5 17 8.74 17 11.5C17 14.26 14.76 16.5 12 16.5ZM12 8.5C10.34 8.5 9 9.84 9 11.5C9 13.16 10.34 14.5 12 14.5C13.66 14.5 15 13.16 15 11.5C15 9.84 13.66 8.5 12 8.5Z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-};
+        <motion.svg
+          width="100"
+          height="60"
+          viewBox="0 0 160 120"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          
+        >
+          <ellipse cx="80" cy="60" rx="80" ry="60" fill="white" />
 
-export default Eye;
+          <motion.g
+            animate={{
+              x: eyePosition.x,
+              y: eyePosition.y,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 300,
+              damping: 30,
+            }}
+          >
+            <circle cx="80" cy="60" r="30" fill="#4299e1" />
+            <circle cx="80" cy="60" r="15" fill="#1e40af" />
+            <circle cx="70" cy="50" r="8" fill="white" />
+          </motion.g>
+
+        
+        </motion.svg>
+  )
+}
