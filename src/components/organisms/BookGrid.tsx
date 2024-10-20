@@ -1,3 +1,4 @@
+"use client"
 import { motion, AnimatePresence } from "framer-motion"
 import { Book } from "@/src/server/schema"
 import { BookSkeleton } from "../molecules/BookSkeleton"
@@ -16,7 +17,7 @@ interface BookGridProps {
 
 export function BookGrid({ books, isLoading, error, searchTerm, setSelectedBook, loadMoreRef }: BookGridProps) {
   const { getContentDensity, getGridColumns } = useAccessibilitySettings();
-  
+  console.log(getGridColumns())
   return (
     <div className="overflow-y-auto max-h-[calc(100vh-150px)] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
       <motion.div
