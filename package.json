@@ -35,7 +35,6 @@
     "lucide-react": "^0.453.0",
     "next": "^15.0.0-rc.0",
     "pg": "^8.13.0",
-    "pg-native": "^3.2.0",
     "react": "^19.0.0-rc-68dbd84b-20240812",
     "react-dom": "^19.0.0-rc-68dbd84b-20240812",
     "react-intersection-observer": "^9.13.1",
