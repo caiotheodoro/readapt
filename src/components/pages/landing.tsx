@@ -2,6 +2,8 @@
 import { Hero } from "../organisms/Hero"
 import { Eye, Headphones, BookOpen, Settings } from "lucide-react"
 import { PageTransition } from "../atoms/PageTransition"
+import { CookieConsent } from "../molecules/CookieConsent"
+import { AnimatePresence } from "framer-motion"
 
 const content = {
   hero: {
@@ -49,12 +51,15 @@ const content = {
 
 export default function ReadaptLandingPage() {
   return (
-    <PageTransition>
-      <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-50 to-white overflow-hidden">
+    <AnimatePresence>
+      <PageTransition>
+        <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-50 to-white overflow-hidden">
         <main className="flex-1">
           <Hero {...content.hero} />
         </main>
+        <CookieConsent />
       </div>
     </PageTransition>
+    </AnimatePresence>
   )
 }

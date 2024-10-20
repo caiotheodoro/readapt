@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Data Processing and Model Training
+2. Feature Extraction
+Content Adaptation
+1. Data Processing and Model Training
 
-## Getting Started
+graph TD
+    A[Download CelebA Dataset] --> B[Extract Dataset]
+    B --> C[Process Data]
+    C --> D[Analyze Data]
+    D --> E[Calculate Visual Impairment Score]
+    E --> F[Train Random Forest Classifier]
+    F --> G[Save Model and Scaler]
 
-First, run the development server:
+Description:
+1. The CelebA dataset is downloaded and extracted.
+The data is processed, combining attribute annotations and partition information.
+Relevant features for visual impairment are selected and analyzed.
+4. A visual impairment score is calculated based on selected features.
+A Random Forest Classifier is trained to predict visual impairment levels (Low, Medium, High).
+The trained model and scaler are saved for later use.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+2. Feature Extraction
+Description:
+1. An input image is provided for analysis.
+Face detection is performed using the face_recognition library.
+3. If a face is detected, face encoding is extracted.
+The face encoding is mapped to simplified features (e.g., Eyeglasses, Narrow_Eyes, etc.).
+If no face is detected, an error is returned.
+3. Content Adaptation
+Description:
+Face features are extracted from the input image.
+2. The features are scaled using the pre-trained scaler.
+The Random Forest Classifier predicts the visual impairment level.
+Based on the prediction, content adaptations are determined.
+Recommendations for font size and content density are returned.
+Overall System Flow
+Description:
+A user uploads an image through the API.
+2. The API processes the image and extracts face features.
+3. The pre-trained model predicts the visual impairment level.
+Content adaptation recommendations are generated based on the prediction.
+The results are returned to the user, including the predicted impairment level, recommended font size, and content density.
+This system combines computer vision techniques for face analysis with machine learning to predict visual impairment levels and provide content adaptation recommendations. The model is trained on the CelebA dataset, using relevant facial features to estimate the likelihood of visual impairment. The content adaptation suggestions aim to improve accessibility for users with different levels of visual abilities.

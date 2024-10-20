@@ -1,0 +1,18 @@
+sequenceDiagram
+    actor User
+    participant Frontend
+    participant API
+    participant FeatureExtractor
+    participant ImpairmentPredictor
+    participant ContentAdapter
+
+    User->>Frontend: Uploads Image
+    Frontend->>API: Send Image
+    API->>FeatureExtractor: Process Image
+    FeatureExtractor->>API: Return Face Features
+    API->>ImpairmentPredictor: Send Features
+    ImpairmentPredictor->>API: Return Impairment Prediction
+    API->>ContentAdapter: Send Impairment Level
+    ContentAdapter->>API: Return Adapted Content
+    API->>Frontend: Send Results
+    Frontend->>User: Display Adapted Content

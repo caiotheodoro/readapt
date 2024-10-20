@@ -1,11 +1,5 @@
-import { pgTable, serial, text, varchar, integer, boolean,decimal } from "drizzle-orm/pg-core";
+import { pgTable, serial, text,  integer, boolean,decimal } from "drizzle-orm/pg-core";
 
-export const users = pgTable("users", {
-  id: serial("id").primaryKey(),
-  username: varchar("username", { length: 25 }).notNull().unique(),
-  password: text("password").notNull(),
-  email: text("email").notNull().unique(),
-});
 
 export const books = pgTable("books", {
   id: integer("id").primaryKey(),
@@ -30,8 +24,6 @@ export const processedImages = pgTable("processed_images", {
   Young: boolean("young").notNull(),
 });
 
-export type User = typeof users.$inferSelect;
-export type NewUser = typeof users.$inferInsert;
 export type Book = typeof books.$inferSelect;
 export type NewBook = typeof books.$inferInsert;
 export type ProcessedImage = typeof processedImages.$inferSelect;
