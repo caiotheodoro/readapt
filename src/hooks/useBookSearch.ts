@@ -27,6 +27,7 @@ export function useBookSearch(initialSearchTerm: string = '') {
     }
   }, [pageSize]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSearch = useCallback(
     debounce((term: string) => {
       resetPage();

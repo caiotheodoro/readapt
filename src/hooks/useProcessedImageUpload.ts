@@ -62,6 +62,11 @@ export function useProcessedImageUpload() {
         });
       });
 
+      toast({
+        title: 'Success',
+        description: "Image uploaded and processed successfully. Your interface is now adapted to your needs.",
+      })
+
       return result;
     } catch (err) {
       setError('Failed to upload and process image. Please try again.');

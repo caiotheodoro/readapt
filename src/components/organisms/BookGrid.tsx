@@ -16,6 +16,7 @@ interface BookGridProps {
 
 export function BookGrid({ books, isLoading, error, searchTerm, setSelectedBook, loadMoreRef }: BookGridProps) {
   const { getContentDensity, getGridColumns } = useAccessibilitySettings();
+  
   return (
     <div className="overflow-y-auto max-h-[calc(100vh-150px)] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
       <motion.div
@@ -28,7 +29,10 @@ export function BookGrid({ books, isLoading, error, searchTerm, setSelectedBook,
         <h2 className="text-xl font-semibold mb-4">
           {searchTerm ? `Search Results for "${searchTerm}"` : ""}
         </h2>
-        <motion.div  className={cn('grid gap-6', getGridColumns(), getContentDensity())}>
+        <motion.div 
+          
+          className={cn('grid gap-6', getGridColumns(), getContentDensity())}
+        >
           <AnimatePresence>
             {books.map((book) => (
               <BookCard key={book.id} book={book} onClick={() => setSelectedBook(book)} />
@@ -36,7 +40,7 @@ export function BookGrid({ books, isLoading, error, searchTerm, setSelectedBook,
           </AnimatePresence>
         </motion.div>
         {isLoading && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 mt-6 max-w-7xl mx-auto px-8">
+          <div className={cn('grid gap-6 mt-6 transition-all duration-300', getGridColumns())}>
             {Array.from({ length: 8 }).map((_, index) => (
               <BookSkeleton key={index} />
             ))}

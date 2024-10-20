@@ -1,6 +1,5 @@
 'use client'
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-
+import React, { useRef, useCallback } from 'react';
 import { Camera, Upload } from 'lucide-react';
 import Webcam from 'react-webcam';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog';
@@ -8,67 +7,36 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { useProcessedImageUpload } from '@/src/hooks/useProcessedImageUpload';
 import { useCameraDialogStore } from '@/src/store/cameraDialogStore';
-
-
-
+import { useCameraStore } from '@/src/store/cameraStore';
+import Image from 'next/image';
 export function CameraDialog() {
-  const { setIsOpen,isOpen } = useCameraDialogStore();
-  const [image, setImage] = useState<string | null>(null);
-  const [isCapturing, setIsCapturing] = useState(false);
-  const [file, setFile] = useState<File | null>(null);
+  const { isOpen, setIsOpen } = useCameraDialogStore();
+  const { 
+    imageState, 
+    isCapturing, 
+    captureImage, 
+    handleFileUpload, 
+    resetImage, 
+    setIsCapturing 
+  } = useCameraStore();
   const webcamRef = useRef<Webcam>(null);
   const { uploadProcessedImage, isLoading, error } = useProcessedImageUpload();
 
-  const captureImage = useCallback(() => {
-    const imageSrc = webcamRef.current?.getScreenshot();
-    if (imageSrc) {
-      setImage(imageSrc);
-      setIsCapturing(false);
-      fetch(imageSrc)
-        .then(res => res.blob())
-        .then(blob => {
-          const file = new File([blob], 'captured_image.jpg', { type: 'image/jpeg' });
-          setFile(file);
-        });
-    }
-  }, [webcamRef]);
-
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const uploadedFile = event.target.files?.[0];
-    if (uploadedFile) {
-      setFile(uploadedFile);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result as string);
-      };
-      reader.readAsDataURL(uploadedFile);
-    }
-  };
-
-  
-
-  useEffect(() => {
-    if (!isOpen) {
-      setImage(null);
-      setIsCapturing(false);
-      setFile(null);
-    }
-  }, [isOpen]);
-
   const onClose = useCallback(() => {
     setIsOpen(false);
-  }, [setIsOpen])
+    resetImage();
+  }, [setIsOpen, resetImage]);
 
   const handleSubmit = useCallback(async () => {
-    if (file) {
+    if (imageState.file) {
       try {
-        await uploadProcessedImage(file);
+        await uploadProcessedImage(imageState.file);
         onClose();
       } catch (error) {
         console.error('Error processing image:', error);
       }
     }
-  }, [file, uploadProcessedImage, onClose]);
+  }, [imageState.file, uploadProcessedImage, onClose]);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -82,17 +50,14 @@ export function CameraDialog() {
         <div className="grid gap-4 py-4">
           <div className="grid w-full items-center gap-1.5">
             <label htmlFor="picture">Picture</label>
-            {image ? (
+            {imageState.preview ? (
               <div className="relative w-full h-48">
-                <img src={image} alt="Captured" className="w-full h-full object-cover rounded-md" />
+                <Image src={imageState.preview} alt="Captured" className="w-full h-full object-cover rounded-md"  width={300} height={300}/>
                 <Button
                   variant="outline"
                   size="sm"
                   className="absolute top-2 right-2"
-                  onClick={() => {
-                    setImage(null);
-                    setFile(null);
-                  }}
+                  onClick={resetImage}
                 >
                   Remove
                 </Button>
@@ -110,7 +75,7 @@ export function CameraDialog() {
                   variant="outline"
                   size="sm"
                   className="absolute bottom-2 left-1/2 transform -translate-x-1/2"
-                  onClick={captureImage}
+                  onClick={() => captureImage(webcamRef)}
                 >
                   Capture
                 </Button>
@@ -138,7 +103,7 @@ export function CameraDialog() {
         </div>
         <div className="flex justify-end gap-2">
           <Button variant="outline" onClick={onClose}>Cancel</Button>
-          <Button onClick={handleSubmit} disabled={!file || isLoading}>
+          <Button onClick={handleSubmit} disabled={!imageState.file || isLoading}>
             {isLoading ? 'Processing...' : 'Submit'}
           </Button>
         </div>
