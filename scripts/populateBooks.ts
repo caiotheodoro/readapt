@@ -5,7 +5,7 @@ import { apiService } from '@/src/services/ApiService.js';
 import { bookService } from '@/src/services/elysia/book/index.js';
 
 const gutendex = new Gutendex();
-const BOOKS_PER_PAGE = 32; // Gutendex returns 32 books per page
+const BOOKS_PER_PAGE = 32; 
 const TOTAL_BOOKS = 1000;
 
 async function downloadAndUploadEpub(downloadUrl: string, bookId: number): Promise<string> {

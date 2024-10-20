@@ -2,15 +2,16 @@ import './globals.css';
 import { Roboto } from 'next/font/google';
 import { AnimatePresence } from 'framer-motion';
 import { headers } from 'next/headers';
+import { Toaster } from '../components/ui/toaster';
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['100', '300', '400', '500', '700', '900'] });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const headersList = headers();
+  const headersList = await headers();
   const pathname = headersList.get('x-invoke-path') || '/';
 
   return (
@@ -20,6 +21,7 @@ export default function RootLayout({
           <div key={pathname} >
             {children}
           </div>
+          <Toaster />
         </AnimatePresence>
       </body>
     </html>
