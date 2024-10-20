@@ -2,7 +2,7 @@ import { Elysia, t } from "elysia";
 import { bookService } from "../services/elysia/book";
 
 export const bookRoutes = new Elysia({ prefix: "/books" })
-  .get("/", async ({ query }) => {
+  .get("/", async ({ query }: { query: any }) => {
     const { page, pageSize, search } = query;
     const result = await bookService.getBooks({
       page: page ? parseInt(page) : 1,

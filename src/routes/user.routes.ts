@@ -11,7 +11,7 @@ export default new Elysia({ name: "users" }).group("/users", (app) =>
     })
     .post(
       "/",
-      async ({ body, set }) =>
+      async ({ body, set }: { body: { email: string; username: string; password: string }; set: { status: number } }) =>
         await userService
           .registerUser({
             email: body.email,

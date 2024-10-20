@@ -3,6 +3,7 @@ import { debounce } from 'lodash';
 import { Book } from '../server/schema';
 import { usePagination } from './usePagination';
 import { useLoading } from './useLoading';
+import { apiService } from '@/src/services/ApiService';
 
 export function useBookSearch(initialSearchTerm: string = '') {
   const [books, setBooks] = useState<Book[]>([]);
@@ -18,11 +19,7 @@ export function useBookSearch(initialSearchTerm: string = '') {
     setError(null);
 
     try {
-      const response = await fetch(`/api/books?search=${term}&page=${pageNum}&pageSize=${pageSize}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch books');
-      }
-      const data = await response.json();
+      const data = await apiService.get<{ books: Book[] }>(`/books?search=${term}&page=${pageNum}&pageSize=${pageSize}`);
       setBooks(prevBooks => pageNum === 1 ? data.books : [...prevBooks, ...data.books]);
       setHasMore(data.books.length === pageSize);
     } catch (err) {
@@ -59,11 +56,7 @@ export function useBookSearch(initialSearchTerm: string = '') {
   const getRandomBook = useCallback(async () => {
     setError(null);
     try {
-      const randomBook = await withLoading(() => fetch('/api/books/random'));
-      if (!randomBook.ok) {
-        throw new Error('Failed to fetch random book');
-      }
-      const data = await randomBook.json();
+      const data = await withLoading(() => apiService.get<Book>('/books/random'));
       setSelectedBook(data);
     } catch (err) {
       setError('Failed to fetch random book. Please try again.');
