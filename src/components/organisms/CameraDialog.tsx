@@ -7,13 +7,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { useProcessedImageUpload } from '@/src/hooks/useProcessedImageUpload';
+import { useCameraDialogStore } from '@/src/store/cameraDialogStore';
 
-interface CameraDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
 
-export function CameraDialog({ isOpen, onClose }: CameraDialogProps) {
+
+export function CameraDialog() {
+  const { setIsOpen,isOpen } = useCameraDialogStore();
   const [image, setImage] = useState<string | null>(null);
   const [isCapturing, setIsCapturing] = useState(false);
   const [file, setFile] = useState<File | null>(null);
@@ -25,7 +24,6 @@ export function CameraDialog({ isOpen, onClose }: CameraDialogProps) {
     if (imageSrc) {
       setImage(imageSrc);
       setIsCapturing(false);
-      // Convert base64 to File object
       fetch(imageSrc)
         .then(res => res.blob())
         .then(blob => {
@@ -47,6 +45,20 @@ export function CameraDialog({ isOpen, onClose }: CameraDialogProps) {
     }
   };
 
+  
+
+  useEffect(() => {
+    if (!isOpen) {
+      setImage(null);
+      setIsCapturing(false);
+      setFile(null);
+    }
+  }, [isOpen]);
+
+  const onClose = useCallback(() => {
+    setIsOpen(false);
+  }, [setIsOpen])
+
   const handleSubmit = useCallback(async () => {
     if (file) {
       try {
@@ -58,16 +70,8 @@ export function CameraDialog({ isOpen, onClose }: CameraDialogProps) {
     }
   }, [file, uploadProcessedImage, onClose]);
 
-  useEffect(() => {
-    if (!isOpen) {
-      setImage(null);
-      setIsCapturing(false);
-      setFile(null);
-    }
-  }, [isOpen]);
-
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Capture or Upload Image</DialogTitle>

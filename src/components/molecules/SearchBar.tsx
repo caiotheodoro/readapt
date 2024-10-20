@@ -1,8 +1,8 @@
 import { Input } from "@/src/components/ui/input"
 import { Button } from "@/src/components/ui/button"
 import { Search, Sparkles, Camera } from "lucide-react"
-import { useState } from "react"
 import { CameraDialog } from "@/src/components/organisms/CameraDialog"
+import { useCameraDialogStore } from "@/src/store/cameraDialogStore"
 
 interface SearchBarProps {
   searchTerm: string
@@ -11,7 +11,7 @@ interface SearchBarProps {
 }
 
 export function SearchBar({ searchTerm, setSearchTerm, getRandomBook }: SearchBarProps) {
-  const [isCameraDialogOpen, setIsCameraDialogOpen] = useState(false)
+  const { setIsOpen: setIsCameraDialogOpen } = useCameraDialogStore()
 
   return (
     <div className="pt-10 pb-10 md:px-0 px-4">
@@ -39,7 +39,6 @@ export function SearchBar({ searchTerm, setSearchTerm, getRandomBook }: SearchBa
           <Sparkles size={32} className="min-h-6 min-w-6" />
         </Button>
       </div>
-      <CameraDialog isOpen={isCameraDialogOpen} onClose={() => setIsCameraDialogOpen(false)} />
     </div>
   )
 }

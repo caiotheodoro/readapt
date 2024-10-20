@@ -10,6 +10,7 @@ import { BookGrid } from "../organisms/BookGrid"
 import { EbookReader } from "../organisms/EbookReader"
 import { CameraDialog } from "../organisms/CameraDialog"
 import { useAccessibilityStore } from "@/src/store/accessibilityStore"
+import { useCameraDialogStore } from "@/src/store/cameraDialogStore"
 
 export default function ReaderPage() {
   const { 
@@ -25,13 +26,12 @@ export default function ReaderPage() {
     getRandomBook 
   } = useBookSearch()
   const { score } = useAccessibilityStore()
+  const {  setIsOpen: setIsCameraDialogOpen } = useCameraDialogStore()
 
   const [ref, inView] = useInView({
     threshold: 0.5,
     triggerOnce: false,
   })
-
-  const [isCameraDialogOpen, setIsCameraDialogOpen] = useState(false)
 
   useEffect(() => {
     if (inView && hasMore && !isLoading) {
@@ -39,16 +39,13 @@ export default function ReaderPage() {
     }
   }, [inView, hasMore, isLoading, loadMore])
 
-
   useEffect(() => {
     if (score !== 0) {
       setIsCameraDialogOpen(false)
-    }
-    else {
+    } else {
       setIsCameraDialogOpen(true)
     }
-  }, [score])
-
+  }, [score, setIsCameraDialogOpen])
 
   return (
     <PageTransition>
@@ -72,10 +69,7 @@ export default function ReaderPage() {
             onClose={() => setSelectedBook(null)} 
           />
         )}
-        <CameraDialog
-          isOpen={isCameraDialogOpen}
-          onClose={() => setIsCameraDialogOpen(false)}
-        />
+        <CameraDialog/>
       </div>
     </PageTransition>
   )
