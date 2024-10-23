@@ -33,15 +33,18 @@ export function useProcessedImageUpload() {
         }
 
         const { score_deficiencia_visual, caracteristicas_extraidas } = analysisResult;
+        
         const {
           Arched_Eyebrows,
           Bags_Under_Eyes,
+          Bald,
+          Blurry,
           Bushy_Eyebrows,
           Eyeglasses,
           Gray_Hair,
-          High_Cheekbones,
-          Male,
           Narrow_Eyes,
+          Pale_Skin,
+          Receding_Hairline,
           Young
         } = caracteristicas_extraidas;
 
@@ -55,9 +58,11 @@ export function useProcessedImageUpload() {
           Bushy_Eyebrows: Boolean(Bushy_Eyebrows),
           Eyeglasses: Boolean(Eyeglasses),
           Gray_Hair: Boolean(Gray_Hair),
-          High_Cheekbones: Boolean(High_Cheekbones),
-          Male: Boolean(Male),
           Narrow_Eyes: Boolean(Narrow_Eyes),
+          Pale_Skin: Boolean(Pale_Skin),
+          Receding_Hairline: Boolean(Receding_Hairline),
+          Bald: Boolean(Bald),
+          Blurry: Boolean(Blurry),
           Young: Boolean(Young),
         });
       });

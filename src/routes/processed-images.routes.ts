@@ -29,17 +29,20 @@ export const processedImageRoutes = new Elysia({ prefix: "/processed-images" })
     const newProcessedImage = await processedImageService.addProcessedImage(body);
     return newProcessedImage;
   }, {
+  
     body: t.Object({
       score: t.Number(),
       image: t.String(),
       Arched_Eyebrows: t.Boolean(),
       Bags_Under_Eyes: t.Boolean(),
+      Bald: t.Boolean(),
+      Blurry: t.Boolean(),
       Bushy_Eyebrows: t.Boolean(),
       Eyeglasses: t.Boolean(),
       Gray_Hair: t.Boolean(),
-      High_Cheekbones: t.Boolean(),
-      Male: t.Boolean(),
       Narrow_Eyes: t.Boolean(),
+      Pale_Skin: t.Boolean(),
+      Receding_Hairline: t.Boolean(),
       Young: t.Boolean(),
     }),
     detail: {

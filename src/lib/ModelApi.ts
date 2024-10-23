@@ -4,15 +4,18 @@ import { env } from '../env';
 interface AnalysisResult {
   error?: string | null;
   score_deficiencia_visual: number;
+  
   caracteristicas_extraidas : {
     Arched_Eyebrows: boolean;
     Bags_Under_Eyes: boolean;
+    Bald: boolean;
+    Blurry: boolean;
     Bushy_Eyebrows: boolean;
     Eyeglasses: boolean;
     Gray_Hair: boolean;
-    High_Cheekbones: boolean;
-    Male: boolean;
     Narrow_Eyes: boolean;
+    Pale_Skin: boolean;
+    Receding_Hairline: boolean;
     Young: boolean;
   }
 }

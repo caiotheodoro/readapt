@@ -5,6 +5,7 @@ import { Elysia } from 'elysia'
 import { bookRoutes } from "../routes/book.routes";
 import swagger from "@elysiajs/swagger";
 import { processedImageRoutes } from "../routes/processed-images.routes";
+import { reinforcementAccessibilityRoutes } from "../routes/reinforcement-accessibility.routes";
 
 const { Pool } = pkg;
 
@@ -18,6 +19,7 @@ const app = new Elysia({ prefix: '/api' })
   .use(swagger())
   .use(bookRoutes)
   .use(processedImageRoutes)
+  .use(reinforcementAccessibilityRoutes)
 
 export type App = typeof app
 
