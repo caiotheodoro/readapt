@@ -64,6 +64,7 @@ export function useProcessedImageUpload() {
           Bald: Boolean(Bald),
           Blurry: Boolean(Blurry),
           Young: Boolean(Young),
+          Predicted_Visual_Impairment: analysisResult.deficiencia_visual_prevista,
         });
       });
 

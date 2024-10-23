@@ -6,19 +6,24 @@ interface AccessibilityState {
   fontSize: string
   contentDensity: string
   setScore: (score: number) => void
+  predictedVisualImpairment: string
 }
 
-const calculateSettings = (score: number): { fontSize: string, contentDensity: string } => {
-  if (score < 3.5) {
-    return { fontSize: 'normal', contentDensity: 'normal' }
-  } else if (score < 4.3) {
-    return { fontSize: 'slightly-large', contentDensity: 'slightly-reduced' }
-  } else if (score < 5.5) {
-    return { fontSize: 'large', contentDensity: 'reduced' }
-  } else if (score < 6.5) {
-    return { fontSize: 'very-large', contentDensity: 'very-reduced' }
+interface AccessibilitySettings {
+  fontSize: string
+  contentDensity: string
+  predictedVisualImpairment: string
+}
+
+const calculateSettings = (score: number): AccessibilitySettings => {
+  if (score >= 7.5) {
+    return { fontSize: 'extra-large', contentDensity: 'minimal', predictedVisualImpairment: 'normal' }
+  } else if (score >= 5.5) {
+    return { fontSize: 'very-large', contentDensity: 'very-reduced', predictedVisualImpairment: 'normal' }
+  } else if (score >= 4) {
+    return { fontSize: 'large', contentDensity: 'reduced', predictedVisualImpairment: 'normal' }
   } else {
-    return { fontSize: 'extra-large', contentDensity: 'minimal' }
+    return { fontSize: 'normal', contentDensity: 'normal', predictedVisualImpairment: 'normal' }
   }
 }
 
@@ -28,9 +33,10 @@ export const useAccessibilityStore = create(
       score: 0,
       fontSize: 'normal',
       contentDensity: 'normal',
+      predictedVisualImpairment: 'normal',
       setScore: (score: number) => {
-        const { fontSize, contentDensity } = calculateSettings(score)
-        set({ score, fontSize, contentDensity })
+        const { fontSize, contentDensity,predictedVisualImpairment } = calculateSettings(score)
+        set({ score, fontSize, contentDensity,predictedVisualImpairment })
       },
     }),
     {

@@ -12,6 +12,7 @@ import { useAccessibilityStore } from "@/src/store/accessibilityStore"
 import { useCameraDialogStore } from "@/src/store/cameraDialogStore"
 import { BookGrid } from "../organisms/BookGrid"
 import { StickyWrapper } from "../atoms/StickyWrapper"
+import { AccessibilityFeedbackCard } from "../molecules/AccessibilityFeedbackCard"
 
 export default function ReaderPage() {
   const { 
@@ -97,6 +98,7 @@ export default function ReaderPage() {
           />
         )}
         <CameraDialog/>
+        <AccessibilityFeedbackCard />
       </div>
     </PageTransition>
   )
