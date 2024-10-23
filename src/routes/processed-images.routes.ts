@@ -44,6 +44,7 @@ export const processedImageRoutes = new Elysia({ prefix: "/processed-images" })
       Pale_Skin: t.Boolean(),
       Receding_Hairline: t.Boolean(),
       Young: t.Boolean(),
+      Predicted_Visual_Impairment: t.String(),
     }),
     detail: {
       description: "Add a new processed image",

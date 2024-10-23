@@ -1,4 +1,4 @@
-import { pgTable, serial, text,  integer, boolean,decimal } from "drizzle-orm/pg-core";
+import { pgTable, serial, text,  integer, boolean,decimal, timestamp } from "drizzle-orm/pg-core";
 
 
 export const books = pgTable("books", {
@@ -24,9 +24,23 @@ export const processedImages = pgTable("processed_images", {
   Pale_Skin: boolean("pale_skin").notNull().default(false),
   Receding_Hairline: boolean("receding_hairline").notNull().default(false),
   Young: boolean("young").notNull().default(false),
+  Predicted_Visual_Impairment: text("predicted_visual_impairment").notNull(),
+});
+
+
+export const reinforcementAcessibility = pgTable("reinforcement_acessibility", {
+  id: serial("id").primaryKey(),
+  score: decimal("score").notNull(),
+  fontSize: text("font_size").notNull(),
+  contentDensity: text("content_density").notNull(),
+  predictedVisualImpairment: text("predicted_visual_impairment").notNull(),
+  reinforcementVisualImpairment: text("reinforcement_visual_impairment").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
 export type Book = typeof books.$inferSelect;
 export type NewBook = typeof books.$inferInsert;
 export type ProcessedImage = typeof processedImages.$inferSelect;
 export type NewProcessedImage = typeof processedImages.$inferInsert;
+export type ReinforcementAcessibility = typeof reinforcementAcessibility.$inferSelect;
+export type NewReinforcementAcessibility = typeof reinforcementAcessibility.$inferInsert;
