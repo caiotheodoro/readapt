@@ -178,6 +178,40 @@ export default function ArchitectureReport() {
             </div>
           </div>
         </section>
+
+        <section className="w-full py-12 md:py-12 lg:py-24">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <div className="inline-block rounded-lg bg-primary px-3 py-1 text-sm text-primary-foreground">
+                  Reinforcement Learning
+                </div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                  Feedback-Driven Improvement
+                </h2>
+                <p className="max-w-[900px] text-primary md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  Our system implements a reinforcement learning approach, continuously improving through user feedback.
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto max-w-4xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
+              <Image
+                src="/architecture/reinforcement.svg"
+                width={600}
+                height={1000}
+                alt="Reinforcement Learning Process"
+                className="mx-auto rounded-xl object-cover object-center sm:w-full"
+              />
+            </div>
+            <div className="text-center max-w-3xl mx-auto">
+              <p className="text-primary md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed">
+                The reinforcement process begins with user interaction and flows through our system, 
+                collecting feedback, updating our database, and refining our ML model. This cycle 
+                ensures continuous improvement in our visual impairment predictions and content adaptations.
+              </p>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
     </PageTransition>

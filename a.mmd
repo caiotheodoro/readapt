@@ -1,18 +1,33 @@
-sequenceDiagram
-    actor User
-    participant Frontend
-    participant API
-    participant FeatureExtractor
-    participant ImpairmentPredictor
-    participant ContentAdapter
+graph TD
+    A[User] -->|Takes photo| B[CameraDialog]
+    B -->|Uploads image| C[useProcessedImageUpload]
+    C -->|Processes image| D[API]
+    D -->|Returns processed data| E[AccessibilityStore]
+    E -->|Displays results| F[AccessibilityFeedbackCard]
+    F -->|User provides feedback| G[useSubmitFeedback]
+    G -->|Submits feedback| H[API /analyze-feedback]
+    H -->|Stores feedback| I[Database]
+    I -->|Updates| J[ReinforcementAcessibility table]
+    J -->|Improves| K[ML Model]
+    K -->|Enhances| D
 
-    User->>Frontend: Uploads Image
-    Frontend->>API: Send Image
-    API->>FeatureExtractor: Process Image
-    FeatureExtractor->>API: Return Face Features
-    API->>ImpairmentPredictor: Send Features
-    ImpairmentPredictor->>API: Return Impairment Prediction
-    API->>ContentAdapter: Send Impairment Level
-    ContentAdapter->>API: Return Adapted Content
-    API->>Frontend: Send Results
-    Frontend->>User: Display Adapted Content
+    subgraph "Frontend"
+        B
+        C
+        E
+        F
+        G
+    end
+
+    subgraph "Backend"
+        D
+        H
+        I
+        J
+        K
+    end
+
+    classDef frontend fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef backend fill:#bbf,stroke:#333,stroke-width:2px;
+    class B,C,E,F,G frontend;
+    class D,H,I,J,K backend;
