@@ -9,6 +9,7 @@ import { useProcessedImageUpload } from '@/src/hooks/useProcessedImageUpload';
 import { useCameraDialogStore } from '@/src/store/cameraDialogStore';
 import { useCameraStore } from '@/src/store/cameraStore';
 import Image from 'next/image';
+import { useAccessibilityStore } from '@/src/store/accessibilityStore';
 export function CameraDialog() {
   const { isOpen, setIsOpen } = useCameraDialogStore();
   const { 
@@ -19,6 +20,7 @@ export function CameraDialog() {
     resetImage, 
     setIsCapturing 
   } = useCameraStore();
+  const setAccessibilityData = useAccessibilityStore(state => state.setAccessibilityData);
   const webcamRef = useRef<Webcam>(null);
   const { uploadProcessedImage, isLoading, error } = useProcessedImageUpload();
 
@@ -30,7 +32,10 @@ export function CameraDialog() {
   const handleSubmit = useCallback(async () => {
     if (imageState.file) {
       try {
-        await uploadProcessedImage(imageState.file);
+        const result = await uploadProcessedImage(imageState.file);
+        if (result) {
+          setAccessibilityData(result);
+        }
         onClose();
       } catch (error) {
         console.error('Error processing image:', error);

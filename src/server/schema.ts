@@ -30,10 +30,7 @@ export const processedImages = pgTable("processed_images", {
 
 export const reinforcementAcessibility = pgTable("reinforcement_acessibility", {
   id: serial("id").primaryKey(),
-  score: decimal("score").notNull(),
-  fontSize: text("font_size").notNull(),
-  contentDensity: text("content_density").notNull(),
-  predictedVisualImpairment: text("predicted_visual_impairment").notNull(),
+  processedImageId: integer("processed_image_id").references(() => processedImages.id),
   reinforcementVisualImpairment: text("reinforcement_visual_impairment").notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });

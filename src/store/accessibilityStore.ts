@@ -1,10 +1,13 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { NewProcessedImage } from '../server/schema'
 
 interface AccessibilityState {
   score: number
+  id: number
   fontSize: string
   contentDensity: string
+  setAccessibilityData: (score: NewProcessedImage) => void
   setScore: (score: number) => void
   predictedVisualImpairment: string
 }
@@ -31,13 +34,18 @@ export const useAccessibilityStore = create(
   persist<AccessibilityState>(
     (set) => ({
       score: 0,
+      id: 0,
       fontSize: 'normal',
       contentDensity: 'normal',
       predictedVisualImpairment: 'Low',
+      setAccessibilityData: (data: NewProcessedImage) => {
+        const { fontSize, contentDensity,predictedVisualImpairment } = calculateSettings(Number(data.score))
+        set({ score: Number(data.score), fontSize, contentDensity,predictedVisualImpairment, id: data.id })
+      },
       setScore: (score: number) => {
         const { fontSize, contentDensity,predictedVisualImpairment } = calculateSettings(score)
         set({ score, fontSize, contentDensity,predictedVisualImpairment })
-      },
+      }
     }),
     {
       name: 'accessibility-storage',

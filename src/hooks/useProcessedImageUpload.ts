@@ -7,12 +7,13 @@ import { useLoading } from './useLoading';
 import { apiService } from '@/src/services/ApiService';
 import { useAccessibilityStore } from '@/src/store/accessibilityStore';
 import { useToast } from './use-toast';
+import { NewProcessedImage } from '../server/schema';
 
 export function useProcessedImageUpload() {
   const { toast } = useToast()
   const [error, setError] = useState<string | null>(null);
   const { isLoading, withLoading } = useLoading();
-  const setScore = useAccessibilityStore(state => state.setScore);
+  
 
   const uploadProcessedImage = useCallback(async (file: File) => {
     setError(null);
@@ -48,9 +49,9 @@ export function useProcessedImageUpload() {
           Young
         } = caracteristicas_extraidas;
 
-        setScore(score_deficiencia_visual);
+        
 
-        return apiService.post('/processed-images', {
+        return apiService.post<NewProcessedImage>('/processed-images', {
           score: score_deficiencia_visual,
           image: fileName,
           Arched_Eyebrows: Boolean(Arched_Eyebrows),
@@ -78,7 +79,7 @@ export function useProcessedImageUpload() {
       setError('Failed to upload and process image. Please try again.');
       throw err;
     }
-  }, [withLoading, setScore]);
+  }, [withLoading]);
 
   return { 
     uploadProcessedImage, 

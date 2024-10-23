@@ -7,10 +7,7 @@ export const reinforcementAccessibilityRoutes = new Elysia({ prefix: "/analyze-f
   return newReinforcementAccessibility;
 }, {
   body: t.Object({
-    score: t.Number(),
-    fontSize: t.String(),
-    contentDensity: t.String(),
-    predictedVisualImpairment: t.String(),
     reinforcementVisualImpairment: t.String(),
+    processedImageId: t.Number(),
   }),
 });

@@ -9,7 +9,7 @@ export function useSubmitFeedback() {
   const { toast } = useToast()
   const [error, setError] = useState<string | null>(null);
   const { isLoading, withLoading } = useLoading();
-  const { fontSize, score, contentDensity, predictedVisualImpairment } = useAccessibilityStore();
+  const { fontSize, score, contentDensity, predictedVisualImpairment,id } = useAccessibilityStore();
 
   const submitFeedback = useCallback(async (reinforcementVisualImpairment: string) => {
     setError(null);
@@ -17,10 +17,7 @@ export function useSubmitFeedback() {
     try {
       const result = await withLoading(async () => {
         return await apiService.post('/analyze-feedback', {
-          score,
-          fontSize,
-          contentDensity,
-          predictedVisualImpairment,
+          processedImageId: id,
           reinforcementVisualImpairment,
         });
       });
