@@ -4,6 +4,9 @@ import { env } from '../env';
 interface AnalysisResult {
   error?: string | null;
   score_deficiencia_visual: number;
+  deficiencia_visual_prevista: string;
+  densidade_conteudo_recomendada: string;
+  tamanho_fonte_recomendado: string;
   
   caracteristicas_extraidas : {
     Arched_Eyebrows: boolean;
@@ -17,6 +20,7 @@ interface AnalysisResult {
     Pale_Skin: boolean;
     Receding_Hairline: boolean;
     Young: boolean;
+    Predicted_Visual_Impairment: string;
   }
 }
 
