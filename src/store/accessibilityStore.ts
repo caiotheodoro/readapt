@@ -9,13 +9,13 @@ interface AccessibilityState {
 }
 
 const calculateSettings = (score: number): { fontSize: string, contentDensity: string } => {
-  if (score < 2) {
+  if (score < 3.5) {
     return { fontSize: 'normal', contentDensity: 'normal' }
-  } else if (score < 2.5) {
+  } else if (score < 4.3) {
     return { fontSize: 'slightly-large', contentDensity: 'slightly-reduced' }
-  } else if (score < 3) {
+  } else if (score < 5.5) {
     return { fontSize: 'large', contentDensity: 'reduced' }
-  } else if (score < 3.5) {
+  } else if (score < 6.5) {
     return { fontSize: 'very-large', contentDensity: 'very-reduced' }
   } else {
     return { fontSize: 'extra-large', contentDensity: 'minimal' }
