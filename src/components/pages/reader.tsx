@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import { useState, useEffect, useCallback, useRef } from "react"
+import React, { useRef } from "react"
 import { useInView } from "react-intersection-observer"
 import { useBookSearch } from "@/src/hooks/useBookSearch"
 import { PageTransition } from "../atoms/PageTransition"
@@ -13,6 +13,7 @@ import { useCameraDialogStore } from "@/src/store/cameraDialogStore"
 import { BookGrid } from "../organisms/BookGrid"
 import { StickyWrapper } from "../atoms/StickyWrapper"
 import { AccessibilityFeedbackCard } from "../molecules/AccessibilityFeedbackCard"
+import { useScrollBehavior } from "@/src/hooks/useScrollBehavior"
 
 export default function ReaderPage() {
   const { 
@@ -35,34 +36,16 @@ export default function ReaderPage() {
     triggerOnce: false,
   })
 
-  const [showSearchBar, setShowSearchBar] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
   const searchBarRef = useRef<HTMLDivElement>(null)
+  const showSearchBar = useScrollBehavior(searchBarRef)
 
-  const handleScroll = useCallback(() => {
-    const currentScrollY = window.scrollY
-    const searchBarHeight = searchBarRef.current?.offsetHeight || 0
-
-    if (currentScrollY < lastScrollY) {
-      setShowSearchBar(true)
-    } else if (currentScrollY > lastScrollY && currentScrollY > searchBarHeight) {
-      setShowSearchBar(false)
-    }
-    setLastScrollY(currentScrollY)
-  }, [lastScrollY])
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [handleScroll])
-
-  useEffect(() => {
+  React.useEffect(() => {
     if (inView && hasMore && !isLoading) {
       loadMore()
     }
   }, [inView, hasMore, isLoading, loadMore])
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (score !== 0) {
       setIsCameraDialogOpen(false)
     } else {
@@ -75,6 +58,7 @@ export default function ReaderPage() {
       <div className="min-h-screen relative">
         <StickyWrapper isVisible={showSearchBar}>
           <SearchBar 
+            ref={searchBarRef}
             searchTerm={searchTerm} 
             setSearchTerm={setSearchTerm} 
             getRandomBook={getRandomBook}
