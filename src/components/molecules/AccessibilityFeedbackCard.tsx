@@ -5,8 +5,8 @@ import { Button } from '@/src/components/ui/button';
 import { useAccessibilityStore } from '@/src/store/accessibilityStore';
 import { useFeedbackCardStore } from '@/src/store/feedbackCardStore';
 import { useCameraDialogStore } from '@/src/store/cameraDialogStore';
-import { RadioGroup, RadioGroupItem } from '@/src/components/ui/radio-group';
-import { Label } from '@/src/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
+import { Label } from '../ui/label';
 import { useSubmitFeedback } from '@/src/hooks/useSubmitFeedback';
 
 const accessibilityOptions = [
